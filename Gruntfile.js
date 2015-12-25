@@ -29,6 +29,18 @@ module.exports = function(grunt) {
 				files: ['resources/assets/bootstrap/dist/**'],
 				tasks: ['copy:bootstrap'],
 			},
+			datatables: {
+				files: ['resources/assets/datatables/media/**'],
+				tasks: ['copy:datatables'],
+			},
+			ckeditor: {
+				files: ['resources/assets/ckeditor/**'],
+				tasks: ['copy:ckeditor'],
+			},
+			Plupload: {
+				files: ['resources/assets/Plupload/**'],
+				tasks: ['copy:Plupload'],
+			},
 			admin: {
 				files: ['resources/assets/AdminLTE/dist/**'],
 				tasks: ['copy:admin'],
@@ -107,6 +119,30 @@ module.exports = function(grunt) {
 					cwd: 'resources/assets/bootstrap/dist',
 					src: ['**'],
 					dest: 'public/assets/bootstrap/',
+				}]
+			},
+			datatables: {
+				files: [{
+					expand: true,
+					cwd: 'resources/assets/datatables/media',
+					src: ['**'],
+					dest: 'public/assets/datatables/',
+				}]
+			},
+			ckeditor: {
+				files: [{
+					expand: true,
+					cwd: 'resources/assets/ckeditor/',
+					src: ['**'],
+					dest: 'public/assets/ckeditor/',
+				}]
+			},
+			Plupload: {
+				files: [{
+					expand: true,
+					cwd: 'resources/assets/Plupload/js/',
+					src: ['**'],
+					dest: 'public/assets/Plupload/js/',
 				}]
 			},
 			admin: {

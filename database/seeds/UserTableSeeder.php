@@ -16,6 +16,6 @@ class UserTableSeeder extends Seeder {
 
 	public function run() {
 		DB::table('users')->truncate();
-		User::create(['nickname' => 'admin', 'username' => 'admin', 'permission' => 1, 'password' => Hash::make('123456')]);
+		User::create(['nickname' => 'admin', 'username' => 'admin', 'permission' => ['user', 'file', 'page', 'project', 'news', 'feedback'], 'password' => '123456']);
 	}
 }

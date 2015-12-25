@@ -7,31 +7,35 @@
 /*	Email: admin@lianyue.org
 /*	Author: Moon
 /*
-/*	Created: UTC 2015-12-11 03:00:23
+/*	Created: UTC 2015-12-01 11:06:55
 /*
 /* ************************************************************************** */
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class CreateProjectsTable extends Migration
 {
-
-/**
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('path');
-            $table->string('mime', 64)->index();
-            $table->integer('size', false, true)->index();
-            $table->rememberToken();
-            $table->softDeletes();
-            $table->timestamps();
+            $table->string('slug', 32)->unique();
+			$table->integer('sort')->index();
+			$table->tinyInteger('self')->index();
+			$table->string('type', 32)->index();
+			$table->string('name', 32);
+			$table->string('logo');
+			$table->string('url');
+            $table->string('title');
+			$table->text('excerpt');
+			$table->text('content');
+			$table->softDeletes();
+			$table->timestamps();
         });
     }
 
@@ -42,7 +46,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('files');
+        Schema::drop('projects');
     }
-
 }
