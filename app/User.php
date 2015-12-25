@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 namespace App;
 
-
+use Hash;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,13 +25,29 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 	use Authenticatable, Authorizable, SoftDeletes;
 	public static $rules = [
 		'nickname'=>'required|max:32',
-		'username' => 'required|min:3|unique:users',
+		'username' => 'required|min:3|unique:users,username,{id}',
 		'password' => 'required|between:6,128|confirmed',
 		'password_confirmation' => 'required|between:6,128',
-		'permission' => 'integer',
 	];
 
-	protected $fillable = ['nickname', 'username', 'password'];
+	protected $fillable = ['nickname', 'username', 'password', 'permission'];
 
 	protected $hidden = ['password', 'remember_token'];
+
+
+	public function getPermissionAttribute($value) {
+		return explode(',', $value);
+	}
+
+	public function setPasswordAttribute($value) {
+		$this->attributes['password'] = Hash::make($value);
+	}
+
+	public function setPermissionAttribute($value) {
+		if (is_array($value)) {
+			$value = implode(',', $value);
+		}
+		$this->attributes['permission'] = implode(',', array_filter(explode(',', $value)));
+	}
+
 }

@@ -16,12 +16,12 @@ use App\News;
 use App\Http\Controllers\Controller;
 class NewsController extends Controller {
 	public function index() {
-		$posts = News::whereStatus(0)->orderBy('published_at', 'DESC')->paginate(config('news.posts_per_page'));
+		$posts = News::whereDraft(0)->orderBy('published_at', 'DESC')->paginate(config('news.posts_per_page'));
 		return view('news.index')->withPosts($posts);
 	}
 
 	public function show($id) {
-		$post = News::find($id)->firstOrFail();
+		$post = News::whereDraft(0)->find($id)->firstOrFail();
 		if ($post->status != 0) {
 			return abort(404);
 		}

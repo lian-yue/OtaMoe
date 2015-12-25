@@ -29,4 +29,8 @@ class Feedback extends Model {
 	];
 
 	protected $fillable = ['status', 'type', 'content', 'url', 'ip', 'contact_type', 'contact_value'];
+
+	public static function unreadCount() {
+		return (new static)->where('status', '=', 0)->count();
+	}
 }

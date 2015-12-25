@@ -33,18 +33,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate) {
 		$gate->define('permission', function(User $user, $name) {
-			static $permissions = [
-				'file' => 4,
-				'user' => 8,
-				'page' => 16,
-				'item' => 32,
-				'news' => 64,
-				'feedback' => 128,
-			];
-			if (empty($permissions[$name])) {
-				return false;
-			}
-			return $user->permission % 2 || $user->permission % $permissions[$name];
+			return in_array($name, $user->permission, true);
 		});
 		parent::registerPolicies($gate);
     }

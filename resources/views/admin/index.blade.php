@@ -11,6 +11,8 @@
 /*
 /* ************************************************************************** */
 ?>@extends('admin.layouts.default')
-@section('title', 'Home')
+@section('title')
+	@lang('Home')
+@endsection
 
 

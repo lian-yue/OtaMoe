@@ -7,22 +7,33 @@
 /*	Email: admin@lianyue.org
 /*	Author: Moon
 /*
-/*	Created: UTC 2015-12-11 06:01:35
+/*	Created: UTC 2015-12-21 01:55:44
 /*
 /* ************************************************************************** */
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Symfony\Component\HttpFoundation\UploadedFile;
 
 class File extends Model{
     use SoftDeletes;
 	public static $rules = [
-		'user_id' => 'required|integer',
 		'name' => 'required|max:255',
-		'path' => 'required|max:255',
-		'mime' => 'required|max:64',
-		'size' => 'required|integer'
+		'url' => 'max:255',
+		'size' => 'required|integer',
+		'file' => 'required|max:20480|mimes:jpeg,jpg,jpe,gif,png,pdf,doc,docx,xls,xlsx,txt,csv,zip,rar,7z,mp4,psd',
 	];
 
-	protected $fillable = ['user_id', 'name', 'path', 'mime', 'size'];
+	protected $fillable = ['name', 'path', 'mime', 'size'];
+
+
+	public function setUrlAttribute($value) {
+		print_r($this->attributes);die;
+	}
+
+	public function setPathAttribute($value) {
+		$this->attributes['path'] = trim($value, '/');
+		$this->attributes['url'] = rtrim(config('file.url_base'), '/') . '/' . $this->attributes['path'];
+	}
 }

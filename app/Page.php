@@ -19,14 +19,15 @@ class Page extends Model {
 
 	public static $rules = [
 		'sort' => 'integer',
-		'slug' => 'required|max:32|unique:pages',
+		'slug' => 'required|max:32|unique:pages,slug,{id}',
 		'name' => 'required|max:255',
 		'title' => 'required|max:255',
 		'excerpt' => 'max:65535',
 		'content' => 'required|max:65535',
 	];
+	protected $fillable = ['sort', 'slug', 'name', 'title', 'excerpt', 'content'];
 
-	public static function getMenu() {
-		$menu = self::orderBy('sort', 'ASC')->get(['slug', 'title', 'name', 'url']);
+	public function setExcerptAttribute($value) {
+		$this->attributes['excerpt'] = trim($value ? $value: strip_tags($this->attributes['content']));
 	}
 }

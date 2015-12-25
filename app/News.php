@@ -11,7 +11,8 @@
 /*
 /* ************************************************************************** */
 namespace App;
-
+use DateTime;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class News extends Model {
@@ -26,4 +27,13 @@ class News extends Model {
 	];
 
 	protected $dates = ['published_at'];
+
+	protected $fillable = ['draft', 'type', 'title', 'excerpt', 'content', 'published_at'];
+
+	public function setPublishedAtAttribute($value) {
+		$this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d H:i:s', (new DateTime($value))->format('Y-m-d H:i:s'));
+	}
+	public function setExcerptAttribute($value) {
+		$this->attributes['excerpt'] = trim($value ? $value: strip_tags($this->attributes['content']));
+	}
 }

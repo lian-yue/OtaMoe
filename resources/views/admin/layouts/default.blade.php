@@ -26,6 +26,7 @@
 	<!--csrf meta-->
 	<meta name="csrf-token" content="{{Session::getToken()}}" />
 
+	@section('style')
 	<!-- Bootstrap 3.3.5 -->
 	<link rel="stylesheet" href="{{URL::asset('/assets/bootstrap/css/bootstrap.min.css')}}">
 	<!-- Font Awesome -->
@@ -43,9 +44,10 @@
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
-	<script src="{{URL::asset('/assets/html5shiv/html5shiv.min.css')}}"></script>
-	<script src="{{URL::asset('/assets/html5shiv/respond.min.css')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('/assets/html5shiv/html5shiv.min.css')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('/assets/html5shiv/respond.min.css')}}"></script>
 	<![endif]-->
+	@show
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -107,17 +109,17 @@
 					<li class="{{(Route::is('admin::page.*') ? 'active ' : '')}}treeview">
 						<a href="{{URL::route('admin::page.index')}}"><i class="fa fa-files-o"></i> <span>@lang('Pages')</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="{{URL::route('admin::page.index')}}">@lang('All Pages')</a></li>
-							<li><a href="{{URL::route('admin::page.create')}}">@lang('Add Page')</a></li>
+							<li class="{{(Route::is('admin::page.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::page.index')}}"><i class="fa fa-circle-o"></i>@lang('All Pages')</a></li>
+							<li class="{{(Route::is('admin::page.create', 'admin::page.edit') ? 'active ' : '')}}"><a href="{{URL::route('admin::page.create')}}"><i class="fa fa-circle-o"></i>@lang('Add Page')</a></li>
 						</ul>
 					</li>
 				@endcan
-				@can('permission', 'item')
-					<li class="{{(Route::is('admin::item.*') ? 'active ' : '')}}treeview">
-						<a href="{{URL::route('admin::item.index')}}"><i class="fa fa-clone"></i> <span>@lang('Items')</span> <i class="fa fa-angle-left pull-right"></i></a>
+				@can('permission', 'project')
+					<li class="{{(Route::is('admin::project.*') ? 'active ' : '')}}treeview">
+						<a href="{{URL::route('admin::project.index')}}"><i class="fa fa-clone"></i> <span>@lang('Projects')</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="{{URL::route('admin::item.index')}}">@lang('All Items')</a></li>
-							<li><a href="{{URL::route('admin::item.create')}}">@lang('Add Item')</a></li>
+							<li class="{{(Route::is('admin::project.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::project.index')}}"><i class="fa fa-circle-o"></i>@lang('All Projects')</a></li>
+							<li class="{{(Route::is('admin::project.create', 'admin::project.edit') ? 'active ' : '')}}"><a href="{{URL::route('admin::project.create')}}"><i class="fa fa-circle-o"></i>@lang('Add Project')</a></li>
 						</ul>
 					</li>
 				@endcan
@@ -125,8 +127,8 @@
 					<li class="{{(Route::is('admin::news.*') ? 'active ' : '')}}treeview">
 						<a href="{{URL::route('admin::news.index')}}"><i class="fa fa-newspaper-o"></i> <span>@lang('News')</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="{{URL::route('admin::news.index')}}">@lang('All News')</a></li>
-							<li><a href="{{URL::route('admin::news.create')}}">@lang('Add News')</a></li>
+							<li class="{{(Route::is('admin::news.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::news.index')}}"><i class="fa fa-circle-o"></i>@lang('All News')</a></li>
+							<li class="{{(Route::is('admin::news.create', 'admin::news.edit') ? 'active ' : '')}}"><a href="{{URL::route('admin::news.create')}}"><i class="fa fa-circle-o"></i>@lang('Add News')</a></li>
 						</ul>
 					</li>
 				@endcan
@@ -134,26 +136,28 @@
 					<li class="{{(Route::is('admin::file.*') ? 'active ' : '')}}treeview">
 						<a href="{{URL::route('admin::file.index')}}"><i class="fa fa-file"></i> <span>@lang('Files')</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="{{URL::route('admin::file.index')}}">@lang('All Files')</a></li>
-							<li><a href="{{URL::route('admin::file.create')}}">@lang('Add File')</a></li>
+							<li class="{{(Route::is('admin::file.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::file.index')}}"><i class="fa fa-circle-o"></i>@lang('All Files')</a></li>
+							<li class="{{(Route::is('admin::file.create', 'admin::file.edit') ? 'active ' : '')}}"><a href="{{URL::route('admin::file.create')}}"><i class="fa fa-circle-o"></i>@lang('Add File')</a></li>
 						</ul>
 					</li>
 				@endcan
 				@can('permission', 'feedback')
-					<li><a href="{{URL::route('admin::feedback.index')}}"><i class="fa fa-comment"></i> <span>@lang('Feedbacks')</span><span class="label label-primary pull-right">0</span></a></li>
-					<li class="{{(Route::is('admin::feedback.*') ? 'active ' : '')}}treeview">
+					<li class="{{(Route::is('admin::feedback.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::feedback.index')}}"><i class="fa fa-comment"></i> <span>@lang('Feedbacks')</span><span class="label label-primary pull-right">{{\App\Feedback::unreadCount()}}</span></a></li>
+				@endcan
+				@can('permission', 'user')
+					<li class="{{(Route::is('admin::user.*') ? 'active ' : '')}}treeview">
 						<a href="{{URL::route('admin::user.index')}}"><i class="fa fa-user"></i> <span>@lang('Users')</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="{{URL::route('admin::user.index')}}">@lang('All Users')</a></li>
-							<li><a href="{{URL::route('admin::user.create')}}">@lang('Add New')</a></li>
+							<li class="{{(Route::is('admin::user.index') ? 'active ' : '')}}"><a href="{{URL::route('admin::user.index')}}"><i class="fa fa-circle-o"></i>@lang('All Users')</a></li>
+							<li class="{{(Route::is('admin::user.create', 'admin::user.edit') ? 'active ' : '')}}"><a href="{{URL::route('admin::user.create')}}"><i class="fa fa-circle-o"></i>@lang('Add New')</a></li>
 						</ul>
 					</li>
 				@endcan
 				<li class="{{(Route::is('admin::profile', 'admin::log') ? 'active ' : '')}}treeview">
 					<a href="{{URL::route('admin::profile')}}"><i class="fa fa-gears"></i> <span>@lang('Profile')</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a href="{{URL::route('admin::profile')}}">@lang('Your Profile')</a></li>
-						<li><a href="{{URL::route('admin::log')}}">@lang('Admin Logs')</a></li>
+						<li class="{{(Route::is('admin::profile') ? 'active ' : '')}}"><a href="{{URL::route('admin::profile')}}">@lang('Your Profile')</a></li>
+						<li class="{{(Route::is('admin::log') ? 'active ' : '')}}"><a href="{{URL::route('admin::log')}}">@lang('Admin Logs')</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -200,18 +204,19 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 
-
+@section('javascript')
 <!-- jQuery 2.1.4 -->
-<script src="{{URL::asset('/assets/jQuery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/jQuery/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{URL::asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{URL::asset('/assets/admin/js/app.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/admin/js/app.min.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
 		 Both of these plugins are recommended to enhance the
 		 user experience. Slimscroll is required when using the
 		 fixed layout. -->
+@show
 </body>
 </html>
 

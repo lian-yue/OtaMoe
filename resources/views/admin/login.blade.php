@@ -44,8 +44,8 @@
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
-	<script src="{{URL::asset('/assets/html5shiv/html5shiv.min.css')}}"></script>
-	<script src="{{URL::asset('/assets/html5shiv/respond.min.css')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('/assets/html5shiv/html5shiv.min.css')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('/assets/html5shiv/respond.min.css')}}"></script>
 	<![endif]-->
 </head>
 <body class="hold-transition login-page">
@@ -55,7 +55,7 @@
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">
-		@if ($errors->count())
+		@if (!empty($errors) && $errors->count())
 			@foreach($errors->all() as $error)
 				<p class="login-box-msg">{{$error}}</p>
 			@endforeach
@@ -73,7 +73,7 @@
 				<div class="col-xs-8">
 					<div class="checkbox icheck" name="checkbox">
 						<label>
-							<input type="checkbox"> @lang('Remember Me')
+							<input name="remember" type="checkbox"> @lang('Remember Me')
 						</label>
 					</div>
 				</div>
@@ -95,14 +95,14 @@
 
 
 <!-- jQuery 2.1.4 -->
-<script src="{{URL::asset('/assets/jQuery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/jQuery/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{URL::asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{URL::asset('/assets/admin/js/app.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/admin/js/app.min.js')}}"></script>
 
 <!-- iCheck -->
-<script src="{{URL::asset('/assets/iCheck/js/icheck.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/assets/iCheck/js/icheck.min.js')}}"></script>
 
 <script type="text/javascript">
 	$(function () {
