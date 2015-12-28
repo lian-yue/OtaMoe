@@ -44,9 +44,10 @@
 				    success: function() {
 				    	$('.file-container').each(function() {
 				    		var container = this;
+				    		var name = $(container).attr('data-name');
 							var uploader = new plupload.Uploader({
 								runtimes : 'html5,flash,html4,silverlight',
-								browse_button : 'file-input-' + $(this).attr('data-name'),
+								browse_button : 'file-input-' + name,
 								container: container,
 								multi_selection: false,
 								url : "{{URL::route('admin::file.store')}}",
@@ -79,7 +80,51 @@
 									FileUploaded: function(up, file, content) {
 										$(container).find('.progress').removeClass('active');
 										var response = $.parseJSON(content.response);
-										console.log(response);
+										var input = $('[name="'+ name +'"]');
+										if (input.is('textarea')) {
+											var html = $('<a></a>').attr({href : response.url, target:'_blank', 'data-file-id' : response.id});
+											var isImage = $.inArray(response.mime, ['image/jpeg', 'image/png', 'image/gif']) != -1;
+											if (isImage) {
+												html.html($('<img>').attr({src: response.url, title: response.name}));
+											} else {
+												html.text(response.name);
+											}
+											if (input.attr('editor')) {
+												var editor = CKEDITOR.instances[name];
+												var selectionValue = editor.getSelection().getSelectedText();
+												if (selectionValue) {
+													if (isImage) {
+														html.append(selectionValue);
+													} else {
+														html.text(selectionValue);
+													}
+												}
+												editor.insertHtml(html.prop("outerHTML"));
+											} else {
+												var textarea = input.get(0);
+												textarea.focus();
+												if (typeof(textarea.selectionStart) == 'number' && typeof(textarea.selectionEnd) == 'number') {
+													var selectionStart = textarea.selectionStart;
+													if (textarea.selectionStart != textarea.selectionEnd) {
+														var selectionValue = textarea.value.substr(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart);
+														if (isImage) {
+															html.append(selectionValue);
+														} else {
+															html.text(selectionValue);
+														}
+														textarea.value = textarea.value.substr(0, textarea.selectionStart) + textarea.value.substr(textarea.selectionEnd);
+														textarea.setSelectionRange(selectionStart, selectionStart);
+													}
+													html = html.prop("outerHTML");
+													textarea.value = textarea.value.substr(0, textarea.selectionStart) + html +  textarea.value.substr(textarea.selectionEnd);
+													textarea.setSelectionRange(selectionStart, selectionStart+ html.length);
+												} else {
+													textarea.value += html;
+												}
+											}
+										} else {
+											input.val(response.url);
+										}
 									}
 								}
 							});

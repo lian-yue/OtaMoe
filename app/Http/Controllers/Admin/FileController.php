@@ -71,6 +71,10 @@ class FileController extends ResourceController {
 		$model = (new $this->model($input));
 		$model->save();
 		log::create(['user_id' => $request->user()->id, 'type' => $this->withName, 'content' => $input, 'ip' => $request->ip()]);
+
+		if ($request->input('json') || $request->ajax()) {
+			return (new $this->model)->findOrFail($model->id);
+		}
 		return redirect('/admin/'. $this->withName .'/'. $model->id .'/edit');
 	}
 

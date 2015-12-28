@@ -16,7 +16,7 @@ use App\News;
 use App\Http\Controllers\Controller;
 class NewsController extends Controller {
 	public function index() {
-		$posts = News::whereDraft(0)->orderBy('published_at', 'DESC')->paginate(config('news.posts_per_page'));
+		$posts = News::whereDraft(0)->orderBy('published_at', 'DESC')->paginate(config('news.posts_per_page', 20));
 		return view('news.index')->withPosts($posts);
 	}
 

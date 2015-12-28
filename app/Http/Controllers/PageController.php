@@ -21,6 +21,6 @@ class PageController extends Controller {
 
 	public function show($slug) {
 		$post = Page::whereSlug($slug)->firstOrFail();
-		return view($slug)->withPost($post);
+		return view(view()->exists($post->slug) ? $post->slug : 'show')->withPost($post);
 	}
 }
