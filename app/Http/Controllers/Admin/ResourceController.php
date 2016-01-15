@@ -64,9 +64,8 @@ abstract class ResourceController extends Controller{
 
 	public function store(Request $request) {
 		$input = $this->input($request, 'create');
-		$className = $this->model;
-		if (!empty($className::$rules)) {
-			$validator = Validator::make($input, array_map(function($rule) { return strtr($rule, ['{id}' => 'NULL']); }, array_intersect_key($className::$rules, $input)));
+		if ($rules = $this->rules($input, $request)) {
+			$validator = Validator::make($input, $rules);
 			if ($validator->fails()) {
 				$this->throwValidationException($request, $validator);
 			}
@@ -111,11 +110,10 @@ abstract class ResourceController extends Controller{
 		$this->permission($id);
 		$model = (new $this->model)->findOrFail($id);
 		$input = $this->input($request, 'update');
-		$className = $this->model;
-		if (!empty($className::$rules)) {
-			$validator = Validator::make($input, array_map(function($rule) use($id) { return strtr($rule, ['{id}' => $id]); }, array_intersect_key($className::$rules, $input)));
+		if ($rules = $this->rules($input, $request, $id)) {
+			$validator = Validator::make($input, $rules);
 			if ($validator->fails()) {
-				return redirect()->back()->withErrors($validator)->withInput();
+				$this->throwValidationException($request, $validator);
 			}
 		}
 		foreach ($input as $key => $value) {
@@ -149,6 +147,13 @@ abstract class ResourceController extends Controller{
 
 	protected function permission($id) {
 		return true;
+	}
+	protected function rules($input, Request $request, $id = NULL) {
+		$className = $this->model;
+		if (empty($className::$rules)) {
+			return [];
+		}
+		return array_map(function($rule) use($id) { return strtr($rule, ['{id}' => $id === NULL ? 'NULL' : $id]); }, array_intersect_key($className::$rules, $input));
 	}
 
 	protected function input(Request $request, $method = 'create') {

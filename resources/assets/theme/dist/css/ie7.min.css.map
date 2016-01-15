@@ -1,0 +1,1 @@
+{"version":3,"sources":["less/ie7.less"],"names":[],"mappings":"AAAA,mBAAoB,GAAG,GAAE,SAAU,IAClC,WAGD,OAAQ,mBAAmB,GAAG,IAC7B","sourcesContent":[".primary-navigation ul li.dropdown ul{\n\twidth: 10em;\n}\n\n#footer #footer-navigation ul li {\n\tdisplay: inline;\n}\n\n"]}

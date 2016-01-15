@@ -1,0 +1,140 @@
+@container-width: 980px;
+
+
+@sidebar-width: 300px;
+@sidebar-background: @sidebar-background-color;
+@sidebar-background-color: @background-color;
+
+@content-background: @content-background-color;
+@content-background-color: @background-color;
+
+
+
+html,
+body,
+.wrapper{
+	min-height: 100%;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font: medium/normal 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', 'Microsoft YaHei', Roboto, Helvetica, Arial, Verdana, sans-serif;
+	margin: 0;
+ 	color: @color;
+ 	background: @background-color;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+	display: block;
+}
+
+
+a,
+.link {
+	color: @link-color;
+	&,
+	&:link,
+	&:visited {
+		text-decoration: none;
+	}
+
+	&:hover {
+		color: @link-color-hover;
+	}
+	&:focus {
+		color: @link-color-focus;
+	}
+
+	&:focus,
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
+button,
+input[type="submit"] {
+	cursor: pointer;
+}
+
+
+.clear {
+	zoom:1;
+	&:before,
+	&:after {
+		content: " ";
+    	display: table
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+.text-hide {
+	text-indent: -9990em;
+}
+
+.text-shadow {
+	text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.fa-icon {
+	&:before,
+	&:after {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
+
+.transition-all {
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	transition: all .2s;
+}
+
+.wrapper {
+	position: relative;
+}
+
+
+
+.container {
+	width: @container-width;
+	margin: 0 auto;
+	&:extend(.clear all);
+}
+
+
+
+
+.sidebar {
+	min-height: 1001px;
+	float: left;
+	width: @sidebar-width;
+	background: @sidebar-background;
+}
+
+
+.content-wrapper {
+	min-height: 1001px;
+	margin-left: @sidebar-width;
+	background: @content-background;
+}

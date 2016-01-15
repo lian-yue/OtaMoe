@@ -27,11 +27,9 @@ class CreateProjectsTable extends Migration
             $table->string('slug', 32)->unique();
 			$table->integer('sort')->index();
 			$table->tinyInteger('self')->index();
-			$table->string('type', 32)->index();
 			$table->string('name', 32);
 			$table->string('logo');
 			$table->string('url');
-            $table->string('title');
 			$table->text('excerpt');
 			$table->text('content');
 			$table->softDeletes();

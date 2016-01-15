@@ -27,13 +27,8 @@ class File extends Model{
 
 	protected $fillable = ['name', 'path', 'mime', 'size'];
 
-
-	public function setUrlAttribute($value) {
-		print_r($this->attributes);die;
-	}
-
 	public function setPathAttribute($value) {
 		$this->attributes['path'] = trim($value, '/');
-		$this->attributes['url'] = rtrim(config('file.url_base'), '/') . '/' . $this->attributes['path'];
+		$this->attributes['url'] = rtrim(config('site.file_url_base'), '/') . '/' . $this->attributes['path'];
 	}
 }

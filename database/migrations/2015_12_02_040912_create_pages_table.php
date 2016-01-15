@@ -24,10 +24,13 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
 			$table->increments('id');
-            $table->integer('sort')->index();
-            $table->string('slug', 32)->unique();
-            $table->string('name');
-            $table->string('title');
+            $table->integer('parent')->index();
+            $table->integer('home')->index();
+            $table->integer('menu')->index();
+            $table->string('icon', 32);
+            $table->string('slug', 64)->unique();
+            $table->string('name', 64);
+            $table->string('url');
             $table->text('excerpt');
             $table->text('content');
             $table->softDeletes();

@@ -87,9 +87,19 @@ foreach ($sorts as $value) {
 											@foreach($array as $field)
 												<td>
 												@if(empty($field['callback']))
-													{{$value->$field['name']}}
+													<?php
+														$showValue = $value->$field['name'];
+													?>
 												@else
-													{!!call_user_func($field['callback'], $value, $field, 'index')!!}
+													<?php
+														$showValue = call_user_func_array($field['callback'], [$value, &$field, 'index']);
+													?>
+												@endif
+
+												@if (in_array($field['type'], ['checkbox', 'select', 'radio']) && is_scalar($showValue) && isset($field['option'][$showValue]))
+													{{$field['option'][$showValue]}}
+												@else
+													{{$showValue}}
 												@endif
 												</td>
 											@endforeach

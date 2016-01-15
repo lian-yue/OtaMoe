@@ -1,5 +1,15 @@
 <?php
-
+/* ************************************************************************** */
+/*
+/*	Lian Yue
+/*
+/*	Url: www.lianyue.org
+/*	Email: admin@lianyue.org
+/*	Author: Moon
+/*
+/*	Created: UTC 2015-12-29 08:07:41
+/*
+/* ************************************************************************** */
 namespace App\Http\Middleware;
 
 use Closure;

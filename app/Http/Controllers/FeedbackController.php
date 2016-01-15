@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 class FeedbackController extends Controller {
 	public function index() {
-		return view('feedback')->withTypes(config('feedback.types'));
+		return view('feedback')->withTypes(config('site.feedback_types'));
 	}
 
 	public function store(Request $request) {
-		$types = config('feedback.types');
+		$types = config('site.feedback_types');
 		$type = $request->input('type', key($types));
 		$type = isset($types[$type]) ? $type : key($types[$type]);
 		$content = $request->input('content');

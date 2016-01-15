@@ -20,13 +20,14 @@ class Project extends Model{
 		'sort' => 'integer',
 		'self' => 'integer|in:0,1',
 		'slug' => 'required|max:32|unique:projects,slug,{id}',
-		'type' => 'required',
 		'logo' => 'max:255',
 		'url' => 'max:255',
 		'excerpt' => 'max:65535',
 		'content' => 'required|max:65535',
 	];
-	protected $fillable = ['sort', 'self', 'slug', 'type', 'logo', 'name', 'url', 'title', 'excerpt', 'content'];
+
+
+	protected $fillable = ['sort', 'self', 'slug', 'logo', 'name', 'url', 'title', 'excerpt', 'content'];
 
 	public function setExcerptAttribute($value) {
 		$this->attributes['excerpt'] = trim($value ? $value: strip_tags($this->attributes['content']));

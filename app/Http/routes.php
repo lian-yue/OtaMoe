@@ -62,5 +62,6 @@ Route::resource('/news', 'NewsController', ['only' => ['index', 'show']]);
 Route::resource('/project', 'ProjectController', ['only' => ['index', 'show']]);
 Route::resource('/feedback', 'FeedbackController', ['only' => ['index', 'show', 'store']]);
 
-Route::get('/', 'PageController@index');
-Route::get('/{slug}', 'PageController@show')->where('slug', '[0-9a-zA-Z._/-]+');
+
+Route::get('/', ['as' => 'page.index', 'uses' => 'PageController@index']);
+Route::get('/{slug}', ['as' => 'page.show', 'uses' => 'PageController@show'])->where('slug', '[0-9a-zA-Z._/-]+');

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 				tasks: ['copy:html5shiv'],
 			},
 			respond: {
-				files: ['resources/assets/respond/dist/**'],
+				files: ['resources/assets/respond/dest/**'],
 				tasks: ['copy:respond'],
 			},
 			'font-awesome': {
@@ -45,6 +45,10 @@ module.exports = function(grunt) {
 				files: ['resources/assets/AdminLTE/dist/**'],
 				tasks: ['copy:admin'],
 			},
+			theme: {
+				files: ['resources/assets/theme/dist/**'],
+				tasks: ['copy:theme'],
+			},
 		},
 		copy: {
 			html5shiv: {
@@ -58,7 +62,7 @@ module.exports = function(grunt) {
 			respond: {
 				files: [{
 					expand: true,
-					cwd: 'resources/assets/respond/dist',
+					cwd: 'resources/assets/respond/dest',
 					src: ['**'],
 					dest: 'public/assets/respond/',
 				}]
@@ -153,6 +157,14 @@ module.exports = function(grunt) {
 					dest: 'public/assets/admin/',
 				}]
 			},
+			theme: {
+				files: [{
+					expand: true,
+					cwd: 'resources/assets/theme/dist/',
+					src: ['**'],
+					dest: 'public/assets/theme/',
+				}]
+			},
 		},
 	});
 
@@ -163,4 +175,3 @@ module.exports = function(grunt) {
 	//注册两个任务
 	grunt.registerTask('default', ['copy']);
 };
-

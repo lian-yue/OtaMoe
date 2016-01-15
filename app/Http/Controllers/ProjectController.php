@@ -16,7 +16,7 @@ use App\Project;
 use App\Http\Controllers\Controller;
 class ProjectController extends Controller {
 	public function index() {
-		$posts = Project::orderBy('sort', 'ASC')->paginate(config('project.posts_per_page', 20));
+		$posts = Project::orderBy('sort', 'ASC')->paginate(config('site.project_posts_per_page', 20));
 		return view('project.index')->withPosts($posts);
 	}
 

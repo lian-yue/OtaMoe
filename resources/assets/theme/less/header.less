@@ -1,0 +1,195 @@
+#header {
+	@header-height: 70px;
+	@header-line-height: 46px;
+	@alpha: 1;
+	@background-color: #FFF;
+	a,
+	a:focus,
+	a:hover {
+		text-decoration: none;
+	}
+	background: @background-color;
+	background: rgba(red(@background-color), green(@background-color), blue(@background-color), @alpha);
+	// z-index: 99999999;
+	// position: absolute;
+	// top: 0;
+	// right: 0;
+	// left: 0;
+
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
+
+	#logo {
+		@color: #DA1B5C;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		user-select: none;
+		float: left;
+		margin: 0;
+		padding: 0;
+		color: @color;
+		a, a:focus, a:hover {
+			float: left;
+			display: block;
+			color: @color;
+		}
+		.site-title {
+			&:extend(.text-hide all);
+			display: block;
+			float: left;
+			width: @header-height;
+			height: @header-height;
+			background: url(../images/logo.png) no-repeat center center;
+		}
+		.site-description {
+			height: @header-height;
+			line-height: @header-height;
+			font-size: x-large;
+			color: @color;
+			display: block;
+			font-weight: 300;
+			float: left;
+			span {
+				opacity: .6;
+			}
+		}
+		&:extend(.transition-all all);
+		&:hover {
+			opacity: .8;
+		}
+	}
+
+
+
+
+
+	.primary-navigation {
+		@color-hover: #DA1B5C;
+		@color-active: @color-hover;
+		@background-color-hover: #f0f0f0;
+		@background-color-active: #f0f0f0;
+	    float: right;
+		.menu-toggle {
+			&:extend(.fa-icon all);
+			display: none;
+			overflow: hidden;
+			width: @header-height;
+			height: @header-height;
+			padding:0;
+			margin: 0;
+			line-height: 100%;
+			border:0;
+			color: @color;
+			background: inherit;
+			&:before {
+				font-size: (@header-height / 2);
+				content: "\f0c9";
+				padding:(@header-height / 4);
+			}
+		}
+
+		ul {
+			&:extend(.transition-all all);
+			&:extend(.clear all);
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			li {
+				display: block;
+				float: left;
+				position: relative;
+				font-size: large;
+				margin: ((@header-height - @header-line-height) / 2) 0 0 ((@header-height - @header-line-height) / 2);
+				padding-bottom: ((@header-height - @header-line-height) / 2);
+				a {
+					&:extend(.transition-all all);
+					border-radius: 3px;
+					line-height: @header-line-height;
+					// font-weight: bold;
+					padding: 0 1em;
+					display: block;
+					text-transform: uppercase;
+					color: @color;
+	    			&:hover,
+					&:focus {
+						background: @background-color-hover;
+						color: @color-hover;
+					}
+				}
+				.fa:before {
+					margin-right: .4em;
+				}
+
+				&:hover,
+				&:focus {
+					a {
+						background: @background-color-hover;
+						color: @color-hover;
+					}
+				}
+
+				&.active {
+					a {
+						background: @background-color-active;
+						background: rgba(red(@background-color-active), green(@background-color-active), blue(@background-color-active), @alpha);
+						color: @color-active;
+					}
+				}
+				&.dropdown {
+					&:hover ul,
+					&:focus ul{
+						margin-top: ((@header-height - @header-line-height) / 2);
+						visibility: visible;
+						opacity: 1;
+					}
+
+					a {
+						&:extend(.fa-icon all);
+						&:after {
+							content: "\f107";
+							margin-left: .2em;
+						}
+						padding-right: .8em;
+					}
+					ul {
+						min-width: 100%;
+						border-bottom-right-radius: 3px;
+						border-bottom-left-radius: 3px;
+						background: @background-color;
+						background: rgba(red(@background-color), green(@background-color), blue(@background-color), @alpha);
+						overflow:hidden;
+						position: absolute;
+						visibility: hidden;
+						opacity: 0;
+						box-shadow: 1px 2px 2px rgba(0,0,0,.15);
+						padding: .4em;
+						li {
+							margin:0;
+							padding:0;
+							float:none;
+							a {
+								background: none;
+								color: @color;
+								line-height: 2;
+								padding: .2em .8em .2em .4em;
+								white-space:nowrap;
+								display: block;
+								font-size: smaller;
+								&:after {
+									display:none;
+									content: none;
+								}
+								&:hover,
+								&:focus {
+									padding: .2em .4em .2em .8em;
+									background: @background-color-hover;
+									background: rgba(red(@background-color-hover), green(@background-color-hover), blue(@background-color-hover), @alpha);
+									color: @color-active;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

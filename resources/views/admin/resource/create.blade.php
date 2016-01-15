@@ -186,7 +186,7 @@ foreach ($array as $form) {
 $attributes = function(array $a, array $in = []) {
 	$r = '';
 	foreach ($a as $k => $v) {
-		if ( in_array($k, ['label', 'legend', 'title', 'methods']) || in_array($k, $in) || (!$v && !in_array($k, ['value', 'min', 'max']))) {
+		if ( in_array($k, ['label', 'legend', 'title', 'methods', 'callback']) || in_array($k, $in) || (!$v && !in_array($k, ['value', 'min', 'max']))) {
 			continue;
 		}
 		$v = is_array($v) || is_object($v) ? reset($v) : $v;
@@ -218,11 +218,21 @@ $attributes = function(array $a, array $in = []) {
 						@foreach($array as $form)
 							@if (!empty($form['callback']))
 								<?php
-									$form['value'] = call_user_func($form['callback'], empty($$withPost) ? NULL :$$withPost, $form, empty($$withPost) ? 'create' : (empty($withShow) ? 'update': 'show'));
+									$form['value'] = call_user_func_array($form['callback'], [empty($$withPost) ? NULL : $$withPost, &$form, empty($$withPost) ? 'create' : (empty($withShow) ? 'update': 'show')]);
 								?>
-							@elseif (!empty($$withPost) && isset($$withPost->$form['name']))
+							@elseif (!empty($$withPost))
+								@if (isset($$withPost->$form['name']))
+									<?php
+										$form['value'] = $$withPost->$form['name'];
+									?>
+								@endif
+							@elseif (Request::old($form['name']) !== null)
 								<?php
-									$form['value'] = $$withPost->$form['name'];
+									$form['value'] = Request::old($form['name']);
+								?>
+							@elseif (!isset($form['value']))
+								<?php
+									$form['value'] = NULL;
 								?>
 							@endif
 							<?php
@@ -236,7 +246,7 @@ $attributes = function(array $a, array $in = []) {
 							}
 							 ?>
 							<div class="form-group">
-								<label for="{{$form['id']}}" class="control-label">@lang($form['title'] . ':')</label>
+								<label for="{{$form['id']}}" class="control-label">{{isset($form['required']) ? '* ' : ''}}@lang($form['title'] . ':')</label>
 								@if ($form['type'] === 'textarea')
 									<textarea{!!$attributes($form, ['value'])!!}>{{isset($form['value']) ? $form['value'] : ''}}</textarea>
 								@elseif ($form['type'] === 'button')
@@ -249,7 +259,7 @@ $attributes = function(array $a, array $in = []) {
 									?>
 									<select{!!$attributes($form, ['value', 'option'])!!}>
 										@foreach(empty($form['option']) ? [] : (array) $form['option'] as $key => $value)
-											<option value="{{$value}}" {{isset($form['value']) && in_array($key, (array)$form['value']) ? 'selected="selected"' : ''}}>@lang($value)</option>
+											<option value="{{$key}}" {{isset($form['value']) && in_array($key, (array)$form['value']) ? 'selected="selected"' : ''}}>@lang($value)</option>
 										@endforeach
 									</select>
 								@elseif ($form['type'] === 'checkbox')
