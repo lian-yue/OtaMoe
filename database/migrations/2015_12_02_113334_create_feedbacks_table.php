@@ -25,9 +25,7 @@ class CreateFeedbacksTable extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('status')->index();
-            $table->string('type', 32)->index();
             $table->text('content');
-            $table->string('url');
             $table->string('ip', 40);
             $table->string('contact_type');
             $table->string('contact_value');

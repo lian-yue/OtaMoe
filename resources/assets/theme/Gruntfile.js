@@ -42,84 +42,30 @@ module.exports = function (grunt) {
 				}
 			},
 
-			ie8DevFile: {
+			ieDevFile: {
 				options: {
 					compress: false,
 					strictMath: true,
 					sourceMap: true,
 					outputSourceFiles: true,
-					sourceMapURL: 'ie8.css.map',
-					sourceMapFilename: 'dist/css/ie8.css.map'
+					sourceMapURL: 'ie.css.map',
+					sourceMapFilename: 'dist/css/ie.css.map'
 				},
 				files: {
-					"dist/css/ie8.css": "less/ie8.less",
+					"dist/css/ie.css": "less/ie.less",
 				}
 			},
-			ie8MinFile: {
+			ieMinFile: {
 				options: {
 					compress: true,
 					strictMath: true,
 					sourceMap: true,
 					outputSourceFiles: true,
-					sourceMapURL: 'ie8.min.css.map',
-					sourceMapFilename: 'dist/css/ie8.min.css.map'
+					sourceMapURL: 'ie.min.css.map',
+					sourceMapFilename: 'dist/css/ie.min.css.map'
 				},
 				files: {
-					"dist/css/ie8.min.css": "less/ie8.less",
-				}
-			},
-
-			ie7DevFile: {
-				options: {
-					compress: false,
-					strictMath: true,
-					sourceMap: true,
-					outputSourceFiles: true,
-					sourceMapURL: 'ie7.css.map',
-					sourceMapFilename: 'dist/css/ie7.css.map'
-				},
-				files: {
-					"dist/css/ie7.css": "less/ie7.less",
-				}
-			},
-			ie7MinFile: {
-				options: {
-					compress: true,
-					strictMath: true,
-					sourceMap: true,
-					outputSourceFiles: true,
-					sourceMapURL: 'ie7.min.css.map',
-					sourceMapFilename: 'dist/css/ie7.min.css.map'
-				},
-				files: {
-					"dist/css/ie7.min.css": "less/ie7.less",
-				}
-			},
-
-			ie6DevFile: {
-				options: {
-					compress: false,
-					strictMath: true,
-					sourceMap: true,
-					outputSourceFiles: true,
-					sourceMapURL: 'ie6.css.map',
-					sourceMapFilename: 'dist/css/ie6.css.map'
-				},
-				files: {
-					"dist/css/ie6.css": "less/ie6.less",
-				}
-			},
-			ie6MinFile: {
-				options: {
-					compress: true,
-					strictMath: true,
-					sourceMap: true,
-					outputSourceFiles: true,
-					sourceMapURL: 'ie6.min.css.map',
-					sourceMapFilename: 'dist/css/ie6.min.css.map'
-				},
-				files: {
-					"dist/css/ie6.min.css": "less/ie6.less",
+					"dist/css/ie.min.css": "less/ie.less",
 				}
 			},
 		},

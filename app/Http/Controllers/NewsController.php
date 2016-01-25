@@ -25,6 +25,6 @@ class NewsController extends Controller {
 		if ($post->status != 0) {
 			return abort(404);
 		}
-		return view('news.post')->withPost($post);
+		return view('news.show')->withPost($post);
 	}
 }

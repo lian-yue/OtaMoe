@@ -4,30 +4,22 @@
 	@alpha: 1;
 	@background-color: #FFF;
 	a,
+	a:active,
 	a:focus,
 	a:hover {
 		text-decoration: none;
 	}
 	background: @background-color;
-	background: rgba(red(@background-color), green(@background-color), blue(@background-color), @alpha);
-	// z-index: 99999999;
-	// position: absolute;
-	// top: 0;
-	// right: 0;
-	// left: 0;
-
 	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 
 	#logo {
+		&:extend(.none-select all);
 		@color: #DA1B5C;
-		-moz-user-select: none;
-		-khtml-user-select: none;
-		user-select: none;
 		float: left;
 		margin: 0;
 		padding: 0;
 		color: @color;
-		a, a:focus, a:hover {
+		a{
 			float: left;
 			display: block;
 			color: @color;
@@ -52,7 +44,7 @@
 				opacity: .6;
 			}
 		}
-		&:extend(.transition-all all);
+		.transition-all;
 		&:hover {
 			opacity: .8;
 		}
@@ -67,11 +59,12 @@
 		@color-active: @color-hover;
 		@background-color-hover: #f0f0f0;
 		@background-color-active: #f0f0f0;
-	    float: right;
+		background: inherit;
 		.menu-toggle {
 			&:extend(.fa-icon all);
 			display: none;
 			overflow: hidden;
+			float: right;
 			width: @header-height;
 			height: @header-height;
 			padding:0;
@@ -86,9 +79,9 @@
 				padding:(@header-height / 4);
 			}
 		}
-
 		ul {
-			&:extend(.transition-all all);
+			float: right;
+			.transition-all;
 			&:extend(.clear all);
 			list-style: none;
 			padding: 0;
@@ -98,16 +91,16 @@
 				float: left;
 				position: relative;
 				font-size: large;
+
 				margin: ((@header-height - @header-line-height) / 2) 0 0 ((@header-height - @header-line-height) / 2);
 				padding-bottom: ((@header-height - @header-line-height) / 2);
 				a {
-					&:extend(.transition-all all);
+					.transition-all;
 					border-radius: 3px;
 					line-height: @header-line-height;
 					// font-weight: bold;
 					padding: 0 1em;
 					display: block;
-					text-transform: uppercase;
 					color: @color;
 	    			&:hover,
 					&:focus {
@@ -130,7 +123,6 @@
 				&.active {
 					a {
 						background: @background-color-active;
-						background: rgba(red(@background-color-active), green(@background-color-active), blue(@background-color-active), @alpha);
 						color: @color-active;
 					}
 				}
@@ -155,7 +147,6 @@
 						border-bottom-right-radius: 3px;
 						border-bottom-left-radius: 3px;
 						background: @background-color;
-						background: rgba(red(@background-color), green(@background-color), blue(@background-color), @alpha);
 						overflow:hidden;
 						position: absolute;
 						visibility: hidden;
@@ -182,8 +173,83 @@
 								&:focus {
 									padding: .2em .4em .2em .8em;
 									background: @background-color-hover;
-									background: rgba(red(@background-color-hover), green(@background-color-hover), blue(@background-color-hover), @alpha);
 									color: @color-active;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+	@media(max-width: @container-sm-max) {
+		#logo {
+			.site-description {
+				display: block;
+			}
+		}
+		.primary-navigation {
+			.menu-toggle {
+				display: block;
+			}
+			.menu-container {
+				z-index: 10000;
+				display: none;
+				position: absolute;
+				top: @header-height;
+				right: 0;
+				left: 0;
+				background: @background-color;
+				border-top: 1px solid @background-color;
+				border-bottom: 1px solid @background-color;
+				box-shadow: 0 1px 3px rgba(0,0,0,.2);
+				&.active {
+					display: block;
+				}
+			}
+			ul {
+				float: none;
+				li {
+					float: none;
+					margin: 0;
+					padding: .4em .8em;
+					font-size: medium;
+					a {
+						line-height: 2.4;
+					}
+					&.dropdown {
+						a {
+							&:after {
+								content: none;
+								margin-left: 0;
+							}
+						}
+						&:hover ul,
+						&:focus ul{
+							margin-top: 0;
+						}
+						ul {
+							min-width: 0;
+							visibility: visible;
+							opacity: 1;
+							position: static;
+							box-shadow: none;
+							margin-left: 1em;
+							li {
+								a,
+								a:hover,
+								a:focus{
+									font-size: smaller;
+									padding: .4em .8em;
 								}
 							}
 						}

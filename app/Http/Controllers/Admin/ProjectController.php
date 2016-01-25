@@ -31,6 +31,7 @@ class ProjectController extends ResourceController {
 		['name' => 'id', 'title' => 'ID', 'type' => 'number', 'methods' => ['index' => 1]],
 		['name' => 'self', 'title' => 'Self', 'type' => 'radio', 'methods' => ['index' => 6, 'create' => 7, 'update' => 7], 'value' => 1, 'option' => [0 => 'False', 1=> 'True']],
 		['name' => 'sort', 'title' => 'Sort', 'type' => 'number', 'methods' => ['index' => 7, 'create' => 5, 'update' => 5], 'value' => 0],
+		['name' => 'published_at', 'title' => 'Published', 'type' => 'datetime', 'methods' => ['index' => 5, 'create' => 4, 'update' => 4]],
 		['name' => 'slug', 'title' => 'Slug', 'type' => 'text', 'methods' => ['index' => 5, 'create' => 4, 'update' => 4], 'maxlength' => 32, 'required' => true],
 		['name' => 'name', 'title' => 'Name', 'type' => 'text', 'methods' => ['index' => 3, 'create' => 2, 'update' => 2], 'maxlength' => 32, 'required' => true],
 		['name' => 'url', 'title' => 'URL', 'type' => 'text', 'methods' => ['create' => 3, 'update' => 3], 'maxlength' => 255],

@@ -20,15 +20,13 @@ class Feedback extends Model {
 
 	public static $rules = [
 		'status'=>'integer|in:-127,127',
-		'type' => 'required|max:32',
 		'content'=>'required|max:65535',
-		'url' => 'max:255',
 		'ip' => 'required|ip',
 		'contact_type' => 'max:32',
 		'contact_value' => 'max:255',
 	];
 
-	protected $fillable = ['status', 'type', 'content', 'url', 'ip', 'contact_type', 'contact_value'];
+	protected $fillable = ['status', 'content', 'ip', 'contact_type', 'contact_value'];
 
 	public static function unreadCount() {
 		return (new static)->where('status', '=', 0)->count();

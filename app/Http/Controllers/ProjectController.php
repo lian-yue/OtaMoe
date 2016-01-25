@@ -22,6 +22,6 @@ class ProjectController extends Controller {
 
 	public function show($slug) {
 		$post = Project::whereSlug($slug)->firstOrFail();
-		return view('project.post')->withPost($post);
+		return view('project.show')->withPost($post);
 	}
 }

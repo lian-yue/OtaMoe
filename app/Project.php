@@ -11,7 +11,9 @@
 /*
 /* ************************************************************************** */
 namespace App;
-
+use DateTime;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model{
@@ -26,10 +28,14 @@ class Project extends Model{
 		'content' => 'required|max:65535',
 	];
 
+	protected $dates = ['published_at'];
 
-	protected $fillable = ['sort', 'self', 'slug', 'logo', 'name', 'url', 'title', 'excerpt', 'content'];
+	protected $fillable = ['sort', 'self', 'slug', 'logo', 'name', 'url', 'title', 'excerpt', 'content', 'published_at'];
 
 	public function setExcerptAttribute($value) {
-		$this->attributes['excerpt'] = trim($value ? $value: strip_tags($this->attributes['content']));
+		$this->attributes['excerpt'] = trim($value ? $value: Str::limit(strip_tags($this->attributes['content']), 255, ''));
+	}
+	public function setPublishedAtAttribute($value) {
+		$this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d H:i:s', (new DateTime($value))->format('Y-m-d H:i:s'));
 	}
 }

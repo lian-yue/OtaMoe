@@ -1,0 +1,121 @@
+.list-project {
+	overflow: hidden;
+	background: #fff;
+	overflow: hidden;
+	margin-bottom: 1.4%;
+	.logo {
+		float: right;
+		margin: 24px;
+		position: relative;
+		border-radius: 5%;
+		width: 128px;
+		height: 128px;
+		overflow: hidden;
+		vertical-align: middle;
+		text-align: center;
+		&:hover, &:focus{
+			a:before {
+				visibility: visible;
+				opacity:1;
+			}
+		}
+
+		a {
+			display: block;
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+
+		a:before {
+			.transition-all;
+			border-radius: 5%;
+			content: "";
+			color: #000;
+			visibility: hidden;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.06);
+			opacity:0;
+			position:absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 1;
+		}
+
+
+		img {
+			margin: auto;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
+	.entry-title{
+		text-align: left;
+	}
+	.entry-meta{
+		display: none;
+	}
+	.entry-content{
+		margin: 0 0 0 1.6em;
+		padding-top:.2em;
+		width: auto;
+		color: lighten(@color, 30%);
+		p {
+			margin: 0;
+			line-height: 1.7;
+			height: 4.9em;
+			.text-overflow-hidden(3);
+		}
+	}
+
+	@media(max-width: @container-sm-max) {
+		float: left;
+		width: 23%;
+		padding: 5% 0 3% 0;
+		margin: 0 1% 2% 1%;
+		.logo{
+			width: 64px;
+			height: 64px;
+			float: none;
+			margin: 0 auto;
+    		border: 1px solid @background-color;
+		}
+		.entry-content {
+			display: none;
+		}
+		.entry-header {
+			margin: 0;
+		}
+		.entry-title {
+			text-align: center;
+			padding: 0;
+		    margin: .2em 0 0 0;
+		    font-size: medium;
+		    line-height: 2;
+		    color: #fff;
+		}
+	}
+
+	@media(max-width: @container-xs-max) {
+		padding: 5% 0 3% 0;
+		width: 48%;
+		.logo{
+			width: 96px;
+			height: 96px;
+		}
+	}
+}
+
+
+.content-project {
+	background: #fff;
+	min-height: 40em;
+}

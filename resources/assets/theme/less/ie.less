@@ -1,0 +1,75 @@
+.form-control {
+	select&{
+		height: 1.6em;
+		line-height: 1.6;
+		padding-top:.3em;
+		padding-bottom: .3em;
+	}
+}
+
+
+.pagination {
+	&:extend(.clear all);
+	li {
+		*display: inline;
+	}
+}
+
+
+#header {
+	.primary-navigation {
+		ul {
+			_float: right;
+			ul {
+				_display:none;
+			}
+		}
+	}
+}
+
+
+#footer {
+	#footer-navigation{
+		ul {
+			li {
+				*display: inline;
+				*float: none;
+			}
+		}
+	}
+
+}
+
+.index-banner {
+	.index-content{
+		background: url(../images/filter.png) repeat;
+		*background: none;
+	}
+}
+
+
+.index-project ul li .logo{
+	_display: none;
+}
+
+
+.main-body {
+	.breadcrumb {
+		li {
+			*margin-right: 1em;
+		}
+	}
+}
+
+.list-news, .content-news {
+	 .entry-title {
+	 	_width: 90%;
+	 }
+	 .entry-content {
+	 	width: 90%;
+	 	img {
+	 		_width: ~"expression(this.width > 660 ? '660' :this.width+'px')";
+	 		height: auto;
+	 	}
+	 }
+}

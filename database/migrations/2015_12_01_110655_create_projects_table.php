@@ -34,6 +34,7 @@ class CreateProjectsTable extends Migration
 			$table->text('content');
 			$table->softDeletes();
 			$table->timestamps();
+            $table->timestamp('published_at')->index();
         });
     }
 

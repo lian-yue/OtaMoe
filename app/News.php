@@ -13,6 +13,7 @@
 namespace App;
 use DateTime;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class News extends Model {
@@ -34,6 +35,6 @@ class News extends Model {
 		$this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d H:i:s', (new DateTime($value))->format('Y-m-d H:i:s'));
 	}
 	public function setExcerptAttribute($value) {
-		$this->attributes['excerpt'] = trim($value ? $value: strip_tags($this->attributes['content']));
+		$this->attributes['excerpt'] = trim($value ? $value: Str::limit(strip_tags($this->attributes['content']), 255, ''));
 	}
 }

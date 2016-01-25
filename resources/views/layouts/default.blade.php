@@ -19,25 +19,27 @@ use App\Page;
 	<meta http-equiv="Cache-Control" content="no-transform" />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>@if (Route::is('page.index')){{config('site.title') . ' - ' . config('site.subtitle')}}@else@yield('title') - {{config('site.title')}}@endif</title>
-	<meta name="keywords" content="@yield('keywords', implode(',', config('site.keywords')))" />
-	<meta name="description" content="@yield('description', config('site.description'))" />
+	@if (Route::is('page.index'))
+		<title>{{config('site.title') . ' - ' . config('site.subtitle')}}</title>
+	@else
+		<title>@yield('title') - {{config('site.title')}}</title>
+	@endif
+	<meta name="keywords" content="@yield('keywords')" />
+	<meta name="description" content="@yield('description')" />
 	@section('style')
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link href="{{URL::asset('/assets/theme/css/main.min.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{URL::asset('/assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
 	<!--[if lt IE 9]>
-	<link href="{{URL::asset('/assets/theme/css/ie8.min.css')}}" rel="stylesheet" type="text/css" />
+	<link href="{{URL::asset('/assets/theme/css/ie.min.css')}}" rel="stylesheet" type="text/css" />
 	<![endif]-->
-	<!--[if lt IE 8]>
-	<link href="{{URL::asset('/assets/theme/css/ie7.min.css')}}" rel="stylesheet" type="text/css" />
-	<![endif]-->
-	<!--[if lt IE 7]>
-	<link href="{{URL::asset('/assets/theme/css/ie6.min.css')}}" rel="stylesheet" type="text/css" />
-	<![endif]-->
+
 	<!--[if lt IE 9]>
 	<script type="text/javascript" src="{{URL::asset('/assets/html5shiv/html5shiv.min.js')}}"></script>
 	<script type="text/javascript" src="{{URL::asset('/assets/respond/respond.min.js')}}"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+	<script type="text/javascript" src="{{URL::asset('/assets/sizzle/sizzle.min.js')}}"></script>
 	<![endif]-->
 	@show
 	@section('javascript')
@@ -84,34 +86,20 @@ use App\Page;
 		</header>
 		<div id="main" class="main">
 			@yield('main')
-			{{-- <div class="container">
-				<div id="sidebar" class="sidebar" role="complementary">
-
-				</div>
-				<div id="content-wrapper" class="content-wrapper">
-					<section class="content-header">
-						@yield('content-header')
-					</section>
-					<section class="content">
-						@yield('content')
-					</section>
-				</div>
-			</div> --}}
 		</div>
 		<footer id="footer" role="contentinfo">
 			<nav id="footer-navigation" class="footer-navigation">
 				<div class="container">
 				<h3>导航</h3>
 					<ul>
-						<li><a href="11">经营范围</a></li>
-						<li><a href="11">法律声明</a></li>
-						<li><a href="11">关于我们</a></li>
-						<li><a href="11">宅萌文化</a></li>
-						<li><a href="11">发展历程</a></li>
-						<li><a href="11">联系我们</a></li>
-						<li><a href="11">在线留言</a></li>
-						<li><a href="11">公司新闻</a></li>
-						<li><a href="11">公司项目</a></li>
+						<li><a href="{{URL::route('page.show', 'business')}}">经营范围</a></li>
+						<li><a href="{{URL::route('page.show', 'tos')}}">服务条款</a></li>
+						<li><a href="{{URL::route('page.show', 'about')}}">关于我们</a></li>
+						<li><a href="{{URL::route('page.show', 'annals')}}">发展历程</a></li>
+						<li><a href="{{URL::route('page.show', 'contact')}}">联系我们</a></li>
+						<li><a href="{{URL::route('feedback.index')}}">在线留言</a></li>
+						<li><a href="{{URL::route('news.index')}}">新闻动态</a></li>
+						<li><a href="{{URL::route('project.index')}}">产品项目</a></li>
 					</ul>
 				</div>
 			</nav>

@@ -58,7 +58,7 @@ class FileController extends ResourceController {
 
 		$className = $this->model;
 		if (!empty($className::$rules)) {
-			$validator = $this->validate($request, array_map(function($rule) { return strtr($rule, ['{id}' => 'NULL']); }, array_intersect_key($className::$rules, $input)));
+			$this->validate($request, array_map(function($rule) { return strtr($rule, ['{id}' => 'NULL']); }, array_intersect_key($className::$rules, $input)));
 		}
 
 
